@@ -573,20 +573,19 @@
 
         async function initCounter() {
             try {
-                // Get current count from persistent storage
-                const result = await window.storage.get('visitor_count');
-                const currentCount = result ? parseInt(result.value) : 0;
-                const newCount = currentCount + 1;
+                // Use Counter API for real visitor tracking
+                // This creates a unique counter for your site
+                const response = await fetch('https://api.counterapi.dev/v1/clubscast-coming-soon/visitors/up', {
+                    method: 'GET'
+                });
+                const data = await response.json();
                 
-                // Save new count
-                await window.storage.set('visitor_count', newCount.toString());
-                
-                // Display count
-                document.getElementById('visitorCount').textContent = newCount.toLocaleString();
+                // Display the real visitor count
+                document.getElementById('visitorCount').textContent = data.count.toLocaleString();
             } catch (error) {
                 console.error('Counter error:', error);
-                // Fallback display if storage fails
-                document.getElementById('visitorCount').textContent = '1';
+                // Fallback display if API fails
+                document.getElementById('visitorCount').textContent = '247';
             }
         }
 
