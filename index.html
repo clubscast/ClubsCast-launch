@@ -267,11 +267,135 @@
             box-shadow: 0 10px 30px rgba(255, 45, 149, 0.5);
         }
 
+        .dj-application {
+            margin: 80px 0;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(255, 45, 149, 0.1), rgba(0, 217, 255, 0.1));
+            border-radius: 30px;
+            border: 3px solid rgba(0, 217, 255, 0.3);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dj-application h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff2d95, #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dj-application p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .dj-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00d9ff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 15px 20px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(0, 217, 255, 0.05);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #00d9ff;
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: #0d1b2a;
+            color: white;
+        }
+
+        .dj-submit-btn {
+            padding: 20px 50px;
+            background: linear-gradient(90deg, #ff2d95, #ff6b35);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .dj-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 45, 149, 0.5);
+        }
+
+        .dj-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .success-message {
             display: none;
             color: #44ff44;
             font-weight: 600;
             font-size: 18px;
+        }
+
+        .dj-success-message {
+            display: none;
+            color: #44ff44;
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 20px;
         }
 
         @keyframes fadeInDown {
@@ -311,8 +435,12 @@
         }
 
         @media (max-width: 768px) {
-            .logo-image {
-                max-width: 300px;
+            .dj-application {
+                padding: 40px 30px;
+            }
+            
+            .dj-application h2 {
+                font-size: 32px;
             }
             
             .tagline {
@@ -348,7 +476,7 @@
 
     <div class="container">
         <div class="logo-section">
-            <img src="Logo Fix black (1).png" alt="ClubsCast" class="logo-image">
+            <img src="" alt="ClubsCast" class="logo-image">
         </div>
 
         <div class="tagline green">YOUR PARTY.</div>
@@ -388,6 +516,46 @@
                 <button type="submit" class="submit-btn">NOTIFY ME</button>
             </form>
             <div class="success-message" id="successMessage">✓ Thanks! We'll let you know when we launch.</div>
+        </div>
+
+        <div class="dj-application">
+            <h2>🎧 Are You a DJ?</h2>
+            <p>Join our network of talented DJs and start getting booked for virtual events. Apply now to be part of the ClubsCast revolution!</p>
+            
+            <form class="dj-form" onsubmit="handleDJSubmit(event)">
+                <div class="form-group">
+                    <label for="djName">DJ Name / Stage Name *</label>
+                    <input type="text" id="djName" placeholder="e.g., DJ MixMaster" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="djEmail">Email Address *</label>
+                    <input type="email" id="djEmail" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="djContact">Preferred Contact Method *</label>
+                    <select id="djContact" onchange="toggleOtherInput()" required>
+                        <option value="">Select contact method</option>
+                        <option value="Google Video">Google Video</option>
+                        <option value="Discord">Discord</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="otherContactGroup" style="display: none;">
+                    <label for="djContactOther">Please Specify *</label>
+                    <input type="text" id="djContactOther" placeholder="e.g., Zoom, FaceTime, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label for="djSocials">Social Media Links (Optional)</label>
+                    <textarea id="djSocials" placeholder="Instagram, SoundCloud, Mixcloud, YouTube, TikTok, etc. (one per line)"></textarea>
+                </div>
+
+                <button type="submit" class="dj-submit-btn">APPLY NOW</button>
+                <div class="dj-success-message" id="djSuccessMessage">✓ Application submitted! We'll be in touch soon.</div>
+            </form>
         </div>
 
         <div class="visitor-counter">
@@ -453,6 +621,86 @@
                 // Reset button
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'NOTIFY ME';
+            });
+        }
+
+        function toggleOtherInput() {
+            const contactMethod = document.getElementById('djContact').value;
+            const otherGroup = document.getElementById('otherContactGroup');
+            const otherInput = document.getElementById('djContactOther');
+            
+            if (contactMethod === 'Other') {
+                otherGroup.style.display = 'flex';
+                otherInput.required = true;
+            } else {
+                otherGroup.style.display = 'none';
+                otherInput.required = false;
+                otherInput.value = '';
+            }
+        }
+
+        function handleDJSubmit(event) {
+            event.preventDefault();
+            
+            let contactMethod = document.getElementById('djContact').value;
+            if (contactMethod === 'Other') {
+                contactMethod = document.getElementById('djContactOther').value;
+            }
+            
+            const djData = {
+                name: document.getElementById('djName').value,
+                email: document.getElementById('djEmail').value,
+                contact: contactMethod,
+                socials: document.getElementById('djSocials').value
+            };
+            
+            const submitBtn = event.target.querySelector('.dj-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'SUBMITTING...';
+            
+            // Send DJ application to ClubsCast email
+            emailjs.send('service_9noeffc', 'template_gaave13', {
+                to_email: 'clubscastservice@gmail.com',
+                dj_name: djData.name,
+                dj_email: djData.email,
+                contact_method: djData.contact,
+                social_links: djData.socials || 'Not provided',
+                submission_date: new Date().toLocaleString()
+            })
+            .then(function(response) {
+                console.log('DJ Application sent to ClubsCast!', response.status);
+                
+                // Send auto-reply to DJ
+                return emailjs.send('service_9noeffc', 'YOUR_DJ_AUTOREPLY_TEMPLATE_ID', {
+                    to_email: djData.email,
+                    dj_name: djData.name,
+                    contact_method: djData.contact
+                });
+            })
+            .then(function(response) {
+                console.log('Auto-reply sent to DJ!', response.status);
+                
+                // Show success message
+                document.getElementById('djSuccessMessage').style.display = 'block';
+                
+                // Reset form
+                event.target.reset();
+                toggleOtherInput();
+                
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'APPLY NOW';
+                
+                setTimeout(() => {
+                    document.getElementById('djSuccessMessage').style.display = 'none';
+                }, 5000);
+            })
+            .catch(function(error) {
+                console.error('DJ Application FAILED...', error);
+                alert('Sorry, there was an error submitting your application. Please try again.');
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'APPLY NOW';
             });
         }
 
