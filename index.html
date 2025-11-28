@@ -506,7 +506,7 @@
         </div>
 
         <p class="description">
-            Whether you're throwing a house party, private event, or need a last minute solution to a DJ cancellation, ClubsCast connects you with professional DJs ready to bring the energy to your event through live streaming.
+            Whether you're throwing a house party or need a last minute solution to a DJ cancellation, ClubsCast connects you with professional DJs ready to bring the energy to your event through live streaming.
         </p>
 
         <div class="email-signup">
@@ -571,13 +571,23 @@
         // Initialize EmailJS with your Public Key
         emailjs.init('lublmlHQqZu4Voeg3');
 
-        let visits = {};
-
-        function initCounter() {
-            const data = visits.count || 0;
-            const newCount = data + 1;
-            visits.count = newCount;
-            document.getElementById('visitorCount').textContent = newCount.toLocaleString();
+        async function initCounter() {
+            try {
+                // Get current count from persistent storage
+                const result = await window.storage.get('visitor_count');
+                const currentCount = result ? parseInt(result.value) : 0;
+                const newCount = currentCount + 1;
+                
+                // Save new count
+                await window.storage.set('visitor_count', newCount.toString());
+                
+                // Display count
+                document.getElementById('visitorCount').textContent = newCount.toLocaleString();
+            } catch (error) {
+                console.error('Counter error:', error);
+                // Fallback display if storage fails
+                document.getElementById('visitorCount').textContent = '1';
+            }
         }
 
         function handleSubmit(event) {
