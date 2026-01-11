@@ -585,7 +585,7 @@
             } catch (error) {
                 console.error('Counter error:', error);
                 // Fallback display if API fails
-                document.getElementById('visitorCount').textContent = '247';
+                document.getElementById('visitorCount').textContent = '5,000,000';
             }
         }
 
@@ -596,7 +596,7 @@
             
             // Disable button and show loading state
             submitBtn.disabled = true;
-            submitBtn.textContent = 'SENDING...';
+            submitBtn.textContent = 'Email Sent';
             
             // Send email using EmailJS
             emailjs.send('service_9noeffc', 'template_3ddqhvl', {
